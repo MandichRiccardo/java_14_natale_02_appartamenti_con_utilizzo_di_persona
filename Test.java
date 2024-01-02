@@ -3,7 +3,8 @@ public class Test{
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
         boolean running = true;
-        String output = "scegliere l'opzione da eseguire:\n";
+        String output = "\n";
+        output += "\tscegliere l'opzione da eseguire:\n";
         output += "0)\tper terminare il programma\n";
         output += "1)\tper usare il costruttore che prende come parametro solo il proprietario\n";
         output += "2)\tper usare il costruttore a cui manca solo il parametro del valore\n";
@@ -18,7 +19,13 @@ public class Test{
                     running = false;
                     break;
                 case 1:
-                    a[i] = new Appartamento(getString("inserisci il nome del proprietario", scan));
+                    a[i] = new Appartamento(
+                            new Persona(
+                                    getString("inserisci il nome del proprietario", scan),
+                                    getString("inserisci il cognome del proprietario", scan),
+                                    getInt("inserisci la data di nascita del proprietario", scan)
+                            )
+                    );
                     break;
                 case 2:
                     a[i] = new Appartamento(
@@ -27,7 +34,11 @@ public class Test{
                             getString("inserisci l'indirizzo dell'appartamento", scan),
                             getString("inserisci la classe energetica di questo appartamento", scan),
                             getBoolean("inserisci 1 se questo appartamento è pregiato", scan),
-                            getString("inserisci il nome del proprietario", scan),
+                            new Persona(
+                                    getString("inserisci il nome del proprietario", scan),
+                                    getString("inserisci il cognome del proprietario", scan),
+                                    getInt("inserisci la data di nascita del proprietario", scan)
+                            ),
                             getDouble("inserisci il prezzo al metro quadro di questo appartamento", scan),
                             getInt("inserisci il piano alla quale si trova questo appartamento", scan)
                     );
@@ -44,6 +55,7 @@ public class Test{
                 case 5:
                     if(a[i] != null) {
                         if (a[i].getCitta() == null) {
+                            a[i].setCodiceFiscaleProprietario(getString("inserisci il codice fiscale di " + a[i].getNomeProprietario(), scan));
                             a[i].setMq(getDouble("quanti metri quadri ha questo appartamento?", scan));
                             a[i].setCitta(getString("in che città si trova questo appartamento?", scan));
                             a[i].setIndirizzo(getString("inserisci l'indirizzo dell'appartamento", scan));

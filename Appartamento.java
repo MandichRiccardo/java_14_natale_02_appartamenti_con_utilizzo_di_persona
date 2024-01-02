@@ -4,16 +4,16 @@ public class Appartamento{
     private String indirizzo;
     private String classeEnergetica;
     private boolean pregiato;
-    private String proprietario;
+    private Persona proprietario;
     private double prezzoMq;
     private int piano;
     private double valore;
 
-    public Appartamento(String proprietario) {
+    public Appartamento(Persona proprietario) {
         this.proprietario = proprietario;
     }
 
-    public Appartamento(double mq, String citta, String indirizzo, String classeEnergetica, boolean pregiato, String proprietario, double prezzoMq, int piano) {
+    public Appartamento(double mq, String citta, String indirizzo, String classeEnergetica, boolean pregiato, Persona proprietario, double prezzoMq, int piano){
         this.mq = mq;
         this.citta = citta;
         this.indirizzo = indirizzo;
@@ -36,10 +36,6 @@ public class Appartamento{
         this.valore = a.valore;
     }
 
-    public double getMq() {
-        return mq;
-    }
-
     public void setMq(double mq) {
         this.mq = mq;
     }
@@ -52,62 +48,47 @@ public class Appartamento{
         this.citta = citta;
     }
 
-    public String getIndirizzo() {
-        return indirizzo;
-    }
-
     public void setIndirizzo(String indirizzo) {
         this.indirizzo = indirizzo;
-    }
-
-    public String getClasseEnergetica() {
-        return classeEnergetica;
     }
 
     public void setClasseEnergetica(String classeEnergetica) {
         this.classeEnergetica = classeEnergetica;
     }
 
-    public boolean isPregiato() {
-        return pregiato;
-    }
-
     public void setPregiato(boolean pregiato) {
         this.pregiato = pregiato;
     }
 
-    public String getProprietario() {
-        return proprietario;
+    public void setCodiceFiscaleProprietario(String codiceFiscale){
+        proprietario.setCodiceFiscale(codiceFiscale);
     }
 
-    public double getPrezzoMq() {
-        return prezzoMq;
+    public String getNomeProprietario(){
+        return proprietario.getNome();
     }
 
     public void setPrezzoMq(double prezzoMq) {
         this.prezzoMq = prezzoMq;
     }
 
-    public int getPiano() {
-        return piano;
-    }
-
     public void setPiano(int piano) {
         this.piano = piano;
     }
 
-    public double getValore() {
-        return valore;
-    }
-
     public void setValore() {
         double valore;
-        if(pregiato){
-            valore = prezzoMq+(prezzoMq/100)*15;
+        if((2023 - proprietario.getAnnoNascita())>17) {
+            if (pregiato) {
+                valore = prezzoMq + (prezzoMq / 100) * 15;
+            } else {
+                valore = prezzoMq;
+            }
+            this.valore = mq * valore;
+            System.out.println("il valore è " + valore);
         }else{
-            valore = prezzoMq;
+            System.out.println("sei minorenne per cui non puoi comprare una casa");
         }
-        this.valore = mq * valore;
     }
 
     public String toString() {
@@ -117,7 +98,7 @@ public class Appartamento{
         info += "\tindirizzo:\t" + indirizzo + "\n";
         info += "\tclasse energetica:\t" + classeEnergetica + "\n";
         info += "\tpregiato:\t" + pregiato + "\n";
-        info += "\tproprietario:\t" + proprietario + "\n";
+        info += "\tproprietario:\n" + proprietario + "\n";
         info += "\tprezzo al metro quadrato:\t" + prezzoMq + "\n";
         info += "\tpiano:\t" + piano + "\n";
         info += "\tvalore:\t" + valore + "\n";
